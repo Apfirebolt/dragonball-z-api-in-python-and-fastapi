@@ -3,6 +3,9 @@ from fastapi import APIRouter, Depends, status, Response, Request
 from sqlalchemy.orm import Session
 from .models import ApiData
 import pandas as pd
+from typing import List
+from . schema import ApiDataBase
+from fastapi_pagination import Page, add_pagination, paginate, Params
 
 import db
 
@@ -14,10 +17,11 @@ router = APIRouter(
 )
     
 
-@router.get('/', status_code=status.HTTP_200_OK)
-async def api_data(database: Session = Depends(db.get_db)):
+@router.get('/', status_code=status.HTTP_200_OK, response_model=Page[ApiDataBase])
+async def api_data(params: Params = Depends(), database: Session = Depends(db.get_db)):
     result = services.get_api_data(database)
-    return result
+    return paginate(result, params)
+
 
 @router.post('/populate', status_code=status.HTTP_201_CREATED)
 async def create_api_data(database: Session = Depends(db.get_db)):
