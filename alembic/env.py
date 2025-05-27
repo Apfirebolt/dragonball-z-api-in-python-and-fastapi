@@ -8,10 +8,12 @@ from db import Base
 import os
 
 from api.models import ApiData
+from auth.models import User
 
 
 # Import and load environment variables
 from dotenv import load_dotenv
+
 load_dotenv()
 
 # this is the Alembic Config object, which provides
@@ -77,13 +79,13 @@ def run_migrations_online():
     configuration = config.get_section(config.config_ini_section)
     configuration["sqlalchemy.url"] = get_url()
     connectable = engine_from_config(
-        configuration, prefix="sqlalchemy.", poolclass=pool.NullPool,
+        configuration,
+        prefix="sqlalchemy.",
+        poolclass=pool.NullPool,
     )
 
     with connectable.connect() as connection:
-        context.configure(
-            connection=connection, target_metadata=target_metadata
-        )
+        context.configure(connection=connection, target_metadata=target_metadata)
 
         with context.begin_transaction():
             context.run_migrations()

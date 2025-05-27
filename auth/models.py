@@ -1,0 +1,28 @@
+from sqlalchemy import Column, Integer, String
+from sqlalchemy.orm import relationship
+from db import Base
+
+from .import hashing
+
+
+class User(Base):
+    __tablename__ = "user"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    username = Column(String(50))
+    email = Column(String(255), unique=True)
+    role = Column(String(50), nullable=True, default='user')
+    password = Column(String(255))
+
+    ideas = relationship("Idea", back_populates="user")
+    tags = relationship("Tag", back_populates="user")
+    
+
+    def __init__(self, username, email, role, password, *args, **kwargs):
+        self.username = username
+        self.email = email
+        self.role = role
+        self.password = hashing.get_password_hash(password)
+
+    def check_password(self, password):
+        return hashing.verify_password(self.password, password)
