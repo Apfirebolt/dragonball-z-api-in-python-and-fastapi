@@ -1,8 +1,8 @@
-"""Added account api data
+"""Added initial tables
 
-Revision ID: e56e5cd2be1d
+Revision ID: d2aef93e423c
 Revises: 
-Create Date: 2022-10-23 21:37:04.711122
+Create Date: 2025-05-28 00:05:09.023162
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'e56e5cd2be1d'
+revision = 'd2aef93e423c'
 down_revision = None
 branch_labels = None
 depends_on = None

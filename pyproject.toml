@@ -1,0 +1,26 @@
+[project]
+name = "dragonball-z-api-in-python-and-fastapi"
+version = "0.1.0"
+description = "An API to get Dragonball Z related data and characters"
+authors = [
+    {name = "Amit Prafulla"}
+]
+license = {text = "MIT"}
+readme = "README.md"
+requires-python = ">=3.12,<4.0"
+dependencies = [
+    "fastapi (>=0.115.12,<0.116.0)",
+    "uvicorn (>=0.34.2,<0.35.0)",
+    "pandas (>=2.2.3,<3.0.0)",
+    "alembic (>=1.16.1,<2.0.0)",
+    "psycopg2 (>=2.9.10,<3.0.0)",
+    "sqlalchemy (>=2.0.41,<3.0.0)",
+    "psycopg2-binary (>=2.9.10,<3.0.0)",
+    "fastapi-pagination (>=0.13.1,<0.14.0)",
+    "python-dotenv (>=1.1.0,<2.0.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
