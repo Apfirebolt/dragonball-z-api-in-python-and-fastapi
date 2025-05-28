@@ -1,5 +1,5 @@
 from typing import Optional, List
-from pydantic import BaseModel, constr
+from pydantic import BaseModel 
 
 
 class ApiDataBase(BaseModel):
@@ -8,6 +8,15 @@ class ApiDataBase(BaseModel):
     power_level: str
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
+
+class ApiDataCreate(BaseModel):
+    character: str
+    power_level: str
+    saga_or_movie: Optional[str] = None
+    dragon_ball_series: Optional[str] = None
+
+    class Config:
+        from_attributes = True
