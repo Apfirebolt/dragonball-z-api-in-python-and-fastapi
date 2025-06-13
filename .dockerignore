@@ -1,0 +1,39 @@
+# Python bytecode
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environment
+venv/
+.venv/
+env/
+
+# Editor/IDE specific files
+.vscode/
+.idea/
+*.swp
+*.bak
+*.swo
+
+# Git
+.git/
+.gitignore
+
+# Logs
+*.log
+logs/
+
+# Test artifacts (if not needed in production image)
+.pytest_cache/
+htmlcov/
+.coverage
+
+# Distribution and build artifacts
+dist/
+build/
+*.egg-info/
+
+# Any other specific temporary files or local configuration
+.DS_Store
+.env # If you use .env files for local variables, do not copy them into the image

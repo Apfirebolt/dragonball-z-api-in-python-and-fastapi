@@ -60,3 +60,7 @@ http://localhost:8000/docs
 
 Execute POST request to populate data from CSV file.
 
+```
+poetry add --dev pytest coverage httpx
+```
+

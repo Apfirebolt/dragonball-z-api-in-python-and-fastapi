@@ -30,9 +30,17 @@ async def create_user_registration(request: schema.User,
     return new_user
 
 
-@router.get('/', response_model=List[schema.DisplayAccount])
+@router.get('/users', response_model=List[schema.DisplayAccount])
 async def get_all_users(database: Session = Depends(db.get_db)):
     return await services.all_users(database)
+
+@router.get('/users/{user_id}', response_model=schema.DisplayAccount)
+async def get_user_by_id(user_id: int, database: Session = Depends(db.get_db)):
+    user_info = await services.get_user_by_id(user_id, database)
+    if not user_info:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
+    return schema.DisplayAccount.from_orm(user_info)
 
 
 @router.post('/login')
