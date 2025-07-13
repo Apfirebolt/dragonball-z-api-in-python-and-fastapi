@@ -1,7 +1,5 @@
-from typing import List
 from fastapi import APIRouter, Depends, status, Response, Request
 from sqlalchemy.orm import Session
-from .models import ApiData
 import pandas as pd
 from typing import List
 from .schema import ApiDataBase, ApiDataCreate
@@ -19,6 +17,10 @@ router = APIRouter(tags=["DBZ"], prefix="/api")
 async def api_data(params: Params = Depends(), database: Session = Depends(db.get_db)):
     result = services.get_api_data(database)
     return paginate(result, params)
+
+@router.delete("/delete_all", status_code=status.HTTP_204_NO_CONTENT)
+async def api_data(database: Session = Depends(db.get_db)):
+    services.delete_all_api_data(database)
 
 
 @router.get("/{id}", status_code=status.HTTP_200_OK, response_model=ApiDataBase)
@@ -83,7 +85,7 @@ async def delete_api_data(
 async def create_api_data(database: Session = Depends(db.get_db)):
     df = pd.read_csv("data/data.csv")
     for index, data in df.iterrows():
-        result = services.create_new_data(
+        result = services.create_api_data(
             data["Character"],
             data["Power_Level"],
             data["Saga_or_Movie"],

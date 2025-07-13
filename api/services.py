@@ -2,7 +2,7 @@ from fastapi import HTTPException, status
 from typing import List
 from .models import ApiData
 
-def create_new_data(character, power_level, saga_or_movie, dragon_ball_series, database) -> ApiData:
+def create_api_data(character, power_level, saga_or_movie, dragon_ball_series, database) -> ApiData:
 
     new_data = ApiData(character=character, 
                         power_level=power_level,
@@ -26,9 +26,9 @@ def get_api_data_by_id(id: int, database) -> ApiData:
     return data
 
 
-def create_new_data(request, database) -> ApiData:
+def create_new_single_data(request, database) -> ApiData:
     new_data = ApiData(
-        character=request.character,
+        character=request.Character,
         power_level=request.power_level,
         saga_or_movie=request.saga_or_movie,
         dragon_ball_series=request.dragon_ball_series
@@ -61,6 +61,12 @@ def delete_api_data(id: int, database):
     database.delete(data)
     database.commit()
     return {"message": "Data deleted successfully"}
+
+
+def delete_all_api_data(database):
+    database.query(ApiData).delete()
+    database.commit()
+    return {"message": "All data deleted successfully"}
 
 
 
